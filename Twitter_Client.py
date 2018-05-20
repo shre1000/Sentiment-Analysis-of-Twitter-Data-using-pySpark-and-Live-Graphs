@@ -5,10 +5,10 @@ from tweepy.streaming import StreamListener
 import socket
 import json
 
-consumer_key = 'BZPlWKpJiKWR8tRz93EmGgRDc'
-consumer_secret = 'bjUMpVJkMkQ6B3QApqJjxikICKK7LSh2Oxcm4DUiLOIat3DsNM'
-access_token = '3918196634-9bhTVAVXv9IAHDv6hESk2qJlRnZqqc8KDrDLHof'
-access_secret = 'ly9bRBANxQCiBmztUhtGjhYsTpfYe27tK8RaYfmgok8Zp'
+consumer_key = 'Hidding'
+consumer_secret = 'Hidding'
+access_token = 'Hidding'
+access_secret = 'Hidding'
 
 class TweetsListener(StreamListener):
 
@@ -20,8 +20,7 @@ class TweetsListener(StreamListener):
           msg = json.loads( data )
           print( msg['text'])
           self.client_socket.send( msg['text'])
-          #print(data.split('\n'))
-          #self.clien_socket.send(data)
+          
           return True
       except BaseException as e:
           print("Error on_data: %s" % str(e))
@@ -40,7 +39,7 @@ def sendData(c_socket):
 
 if __name__ == "__main__":
   s = socket.socket()         # Create a socket object
-  #host = socket.gethostbyname(socket.gethostname())      # Get local machine name
+ 
   host  = socket.gethostbyname(socket.gethostname())
   port = 10000                 # Reserve a port for your service.
   s.bind((host, port))        # Bind to the port
