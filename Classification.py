@@ -69,7 +69,6 @@ if __name__ == "__main__":
   LR_model.save(sc, LR_output_dir)
 
   SVM_model = SVMWithSGD.train(trained_hashed, iterations = 10)
-  #SVM_model.setThreshold(0.5)
   SVM_prediction_and_labels = test_hashed.map(lambda point : (SVM_model.predict(point.features), point.label))
   SVM_model.clearThreshold()
   SVM_correct = SVM_prediction_and_labels.filter(lambda (predicted, actual): predicted == actual)
@@ -79,20 +78,8 @@ if __name__ == "__main__":
   shutil.rmtree("hdfs://master:9000/user/hadoop/SVM/metadata", ignore_errors=True)
   SVM_model.save(sc, SVM_output_dir)
 
-  #DT_model = DecisionTree.train(trained_hashed, numClasses=2, categoricalFeaturesInfo={}, impurity='gini', maxDepth=5, maxBins=32)
-  #DT_prediction_and_labels = test_hashed.map(lambda point : (DT_model.predict(point.features), point.label))
-  #DT_correct = DT_prediction_and_labels.filter(lambda (predicted, actual): predicted == actual)
-  #DT_accuracy = DT_correct.count() / float(test_hashed.count())
-  #print "DT training accuracy:" + str(DT_accuracy * 100) + " %"
-  #DT_output_dir = 'hdfs://master:9000/user/hadoop/DecisionTree'
-  #shutil.rmtree("hdfs://master:9000/user/hadoop/DecisionTree/metadata", ignore_errors=True)
-  #DT_model.save(sc, DT_output_dir)
-  
-
   model = DecisionTree.trainClassifier(trained_hashed, numClasses=2, categoricalFeaturesInfo={},
                                      impurity='gini', maxDepth=5, maxBins=32)
-
-  # Evaluate model on test instances and compute test error
   predictions = model.predict(test_hashed.map(lambda x: x.features))
   labelsAndPredictions = test_hashed.map(lambda lp: lp.label).zip(predictions)
   testErr = labelsAndPredictions.filter(
@@ -100,7 +87,5 @@ if __name__ == "__main__":
   print('Test Error = ' + str(testErr))
   print('Learned classification tree model:')
   print(model.toDebugString())
-
-  # Save and load model
   model.save(sc, "hdfs:///user/hadoop/DT")
   
