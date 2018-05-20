@@ -1,1 +1,1 @@
-spark-submit --conf "spark.network.timeout=10000000" --conf "spark.driver.maxResultSize=10G" --driver-memory 10G  --deploy-mode cluster --master yarn --num-executors 256   --executor-memory 8G --executor-cores 2 classificationpy
+spark-submit --conf "spark.network.timeout=10000000" --conf "spark.driver.maxResultSize=10G" --driver-memory 10G  --deploy-mode cluster --master yarn --num-executors 256   --executor-memory 8G --executor-cores 2 Classification_Training.py
