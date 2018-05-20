@@ -27,5 +27,5 @@ def update_data():
         print("data received: " + str(values))
         return "success",201
 if __name__ == "__main__":
-        app.run(host= 130.74.96.208, port=5001)
-~                                                  
+        app.run(host= 000.00.00.000, port=5001)
+#enter your IP address above                                               
